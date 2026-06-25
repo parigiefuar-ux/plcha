@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 # Copia il binario di Helios dal builder
 COPY --from=builder /helios/target/release/helios /usr/local/bin/helios
 
-WORKDIR /app
+# Usiamo /opt/chain per il codice, così non va in conflitto con il volume montato su /app
+WORKDIR /opt/chain
 
 # Copia i file Node.js
 COPY package.json ./
@@ -36,4 +37,4 @@ RUN chmod +x start.sh
 ENTRYPOINT ["/bin/sh"]
 
 # Avvia lo script
-CMD ["./start.sh"]
+CMD ["/opt/chain/start.sh"]
