@@ -1,8 +1,8 @@
 # Usa l'immagine base più recente di Rust per supportare Cargo.lock v4
 FROM rust:slim-bookworm AS builder
 
-# Installa dipendenze per la compilazione
-RUN apt-get update && apt-get install -y git clang libssl-dev pkg-config
+# Installa dipendenze per la compilazione (inclusi make e perl per OpenSSL)
+RUN apt-get update && apt-get install -y git clang libssl-dev pkg-config make perl
 
 # Clona e compila Helios (Light Client Ethereum)
 RUN git clone https://github.com/a16z/helios.git /helios
