@@ -1,5 +1,5 @@
-# Usa un'immagine base con Node.js e Rust (per compilare Helios)
-FROM rust:1.75-slim-bookworm as builder
+# Usa l'immagine base più recente di Rust per supportare Cargo.lock v4
+FROM rust:slim-bookworm AS builder
 
 # Installa dipendenze per la compilazione
 RUN apt-get update && apt-get install -y git clang libssl-dev pkg-config
