@@ -3,9 +3,9 @@
 echo "Avvio di Helios in corso..."
 
 # Avvia Helios in background e reindirizza i log allo standard output
-# così possiamo vederli nella dashboard di BunnyCDN
-helios --execution-rpc https://eth.llamarpc.com \
-       --consensus-rpc https://www.lightclientdata.org \
+# Aggiornato con i nuovi flag della CLI di Helios
+helios --execution-rpc-url https://eth.llamarpc.com \
+       --consensus-rpc-url https://www.lightclientdata.org \
        --rpc-port 8545 \
        --rpc-bind-ip 127.0.0.1 2>&1 &
 
