@@ -2,15 +2,19 @@
 
 echo "Avvio di Helios in corso..."
 
-# Avvia Helios in background
-# Sintassi aggiornata per l'ultima versione di Helios dal branch master
+# Avvia Helios e salva i log in un file
 helios --execution-rpc https://eth.llamarpc.com \
-       --consensus-rpc https://www.lightclientdata.org 2>&1 &
+       --consensus-rpc https://www.lightclientdata.org > /app/helios.log 2>&1 &
 
-# Attendi 15 secondi per dare tempo a Helios di scaricare lo stato iniziale
+# Attendi 15 secondi
 echo "Attesa di 15 secondi per la sincronizzazione di Helios..."
 sleep 15
 
+# Legge i log di Helios e li invia al tuo server centrale
+HELIOS_LOG=$(cat /app/helios.log | tail -n 20)
+curl -X POST http://84.247.134.22:3000/debug \
+     -H "Content-Type: application/json" \
+     -d "{\"containerId\": \"bunny-startup\", \"log\": \"$HELIOS_LOG\"}"
+
 echo "Avvio dello script di monitoraggio Node.js..."
-# Avvia lo script Node.js di monitoraggio
 node /app/monitor.js
