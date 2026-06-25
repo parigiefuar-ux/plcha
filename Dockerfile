@@ -14,6 +14,9 @@ RUN cargo build --release
 # ==========================================
 FROM node:20-slim
 
+# Installa curl per il debug
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Copia il binario di Helios dal builder
 COPY --from=builder /helios/target/release/helios /usr/local/bin/helios
 

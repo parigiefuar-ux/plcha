@@ -3,8 +3,10 @@
 echo "Avvio di Helios in corso..."
 
 # Avvia Helios e salva i log in un file
+# Aggiunto --data-dir per forzare il salvataggio nella cartella scrivibile /app
 helios --execution-rpc https://eth.llamarpc.com \
-       --consensus-rpc https://www.lightclientdata.org > /app/helios.log 2>&1 &
+       --consensus-rpc https://www.lightclientdata.org \
+       --data-dir /app/helios-data > /app/helios.log 2>&1 &
 
 # Attendi 15 secondi
 echo "Attesa di 15 secondi per la sincronizzazione di Helios..."
