@@ -46,16 +46,21 @@ async function getTokenMetadata(address, provider) {
 async function startMonitoring() {
   console.log(`[${CONTAINER_ID}] Attesa avvio nodo Helios locale...`);
   
-  // Attendi che Helios sia pronto
+  // Attendi che Helios sia pronto (con log più puliti)
   let provider;
+  let attempts = 0;
   while (true) {
     try {
-      provider = new JsonRpcProvider(LOCAL_RPC_URL);
+      provider = new JsonRpcProvider(LOCAL_RPC_URL, undefined, { staticNetwork: true });
       await provider.getBlockNumber();
       console.log(`[${CONTAINER_ID}] Connesso al nodo Helios locale!`);
       break;
     } catch (e) {
-      await new Promise(r => setTimeout(r, 1000));
+      attempts++;
+      if (attempts % 5 === 0) {
+        console.log(`[${CONTAINER_ID}] Ancora in attesa di Helios... (Tentativo ${attempts})`);
+      }
+      await new Promise(r => setTimeout(r, 2000));
     }
   }
 
