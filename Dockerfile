@@ -32,5 +32,8 @@ COPY start.sh ./
 # Rendi eseguibile lo script di avvio
 RUN chmod +x start.sh
 
-# Avvia lo script che lancia sia Helios che Node.js
+# Sovrascrive l'entrypoint di default di node:20-slim
+ENTRYPOINT ["/bin/sh"]
+
+# Avvia lo script
 CMD ["./start.sh"]
