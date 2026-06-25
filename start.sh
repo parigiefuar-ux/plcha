@@ -3,10 +3,10 @@
 echo "Avvio di Helios in corso..."
 
 # Avvia Helios e salva i log in un file
-# Usa /app (il volume montato da BunnyCDN) per salvare i dati persistenti di Helios
-helios --execution-rpc https://eth.llamarpc.com \
-       --consensus-rpc https://www.lightclientdata.org \
-       --data-dir /app/helios-data > /opt/chain/helios.log 2>&1 &
+# Aggiunto il comando 'start' richiesto dalle nuove versioni di Helios
+helios start --execution-rpc https://eth.llamarpc.com \
+             --consensus-rpc https://www.lightclientdata.org \
+             --data-dir /app/helios-data > /opt/chain/helios.log 2>&1 &
 
 # Attendi 15 secondi
 echo "Attesa di 15 secondi per la sincronizzazione di Helios..."
